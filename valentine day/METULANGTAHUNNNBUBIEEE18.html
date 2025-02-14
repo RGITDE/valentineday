@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAPPY VALENTINE DAY</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background:  #ff69b4;
+            border: 2px solid  #ed1d85;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .envelope .flap {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background:  #ff69b4;
+            top: 0;
+            left: 0;
+            transform-origin: top;
+            transition: transform 0.5s ease-in-out;
+        }
+        .envelope .bottom {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background:#f0f0f0;
+            bottom: 0;
+            left: 0;
+        }
+        .envelope .name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: black;
+        }
+        .letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 280px;
+            max-height: 80vh;
+            background: white;
+            border: 1px solid  #f1278c;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            transition: transform 0.5s ease-in-out;
+            z-index: 10;
+            opacity: 0;
+        }
+        .letter.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .letter h1 {
+            color:  #ff69b4;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        .photo-section, .video-section {
+            margin: 10px 0;
+        }
+        .photo-section img, .video-section video {
+            max-width: 100%;
+            border: 2px solid  #ff69b4;
+            border-radius: 5px;
+        }
+        .close-btn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background: #ff69b4;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .close-btn:hover {
+            background: #ff69b4;
+        }
+        .decor {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .decor .circle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: #ff69b4;
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+        .decor .circle:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        .decor .circle:nth-child(2) {
+            top: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+        .decor .circle:nth-child(3) {
+            top: 70%;
+            left: 40%;
+            animation-delay: 4s;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-music" loop>
+        <source src="tulus.mp3" type="audio/mp3">
+        Your browser does not support the audio tag.
+    </audio>
+
+    <div class="container">
+        <div class="decor">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="envelope" id="envelope">
+            <div class="flap" id="flap"></div>
+            <div class="bottom">
+                <div class="name">HAPPY VALENTINE DAY</div>
+            </div>
+        </div>
+        <div class="letter" id="letter">
+            <h1>HAPPY VALENTINE DAY !!</h1>
+            <p>haloo pacar kuuu ga terasa ya hubungan kita ubah berjalan lama hihhihih semoga kita masi sama sama suka ya di tahun tahun yang bakalan dateng</p>
+            <p>tahun ini banyak kali cobaan yang berat ya, baru juga awal bulan udah banyak kali cobaan nya ya ampunn cape banar huuhuuu</p>
+            <p>tapi aku masi bisa beryukur karna ada u yang datang di hidup akuuu makasihh banyak hihi di mam ya coklat nya dari aku di pake juga gelang nya</p>
+            <p>love youuu banyak banyakk bubbieee</p>
+            <div class="photo-section">
+                <h3>this year foto</h3>
+                <img src="poto2.jpg" alt="this year foto">
+            </div>
+            <div class="video-section">
+                <h3>Video</h3>
+                <video id="video" controls>
+                    <source src="vidio1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <button class="close-btn" id="close-btn">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const flap = document.getElementById('flap');
+        const letter = document.getElementById('letter');
+        const closeBtn = document.getElementById('close-btn');
+        const music = document.getElementById('background-music');
+        const video = document.getElementById('video');
+
+        envelope.addEventListener('click', () => {
+            flap.style.transform = 'rotateX(180deg)';
+
+            setTimeout(() => {
+                letter.classList.add('show');
+            }, 500);
+
+            music.volume = 1;
+            music.play();
+        });
+
+        closeBtn.addEventListener('click', () => {
+            letter.classList.remove('show');
+            setTimeout(() => {
+                flap.style.transform = 'rotateX(0)';
+            }, 500);
+        });
+
+        video.addEventListener('play', () => {
+            music.volume = 0.2;
+        });
+
+        video.addEventListener('pause', () => {
+            music.volume = 1;
+        });
+
+        video.addEventListener('ended', () => {
+            music.volume = 1;
+        });
+    </script>
+<style>
+    body {
+      background: linear-gradient(to bottom, #ffe6f2, #ffffff);
+      overflow: hidden;
+      margin: 0;
+      height: 100vh;
+    }
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff69b4;
+      transform: rotate(45deg);
+      animation: fall 5s infinite ease-in;
+      top:-20px
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff69b4;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function createHearts() {
+      for (let i = 0; i < 10; i++) { // Mengurangi jumlah hati yang muncul sekaligus
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 4 + 6 + 's'; // Menambah durasi animasi agar lebih lambat
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 10000); // Menghapus hati setelah 10 detik
+      }
+    }
+    setInterval(createHearts, 500); // Memunculkan hati setiap 0,5 detik
+  </script>
+<style>
+  body {
+    background: linear-gradient(to bottom, #ffe6f2, #ffffff);
+    overflow: hidden;
+    margin: 0;
+    height: 100vh;
+  }
+  .flower {
+    position: absolute;
+    font-size: 24px;
+    animation: fall 8s infinite ease-in;
+    top: -20px;
+  }
+  @keyframes fall {
+    0% {
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<script>
+  const flowerEmojis = ['🌸', '🌹', '🌼', '🌷', '💐'];
+
+  function createFlowers() {
+    for (let i = 0; i < 10; i++) {  // Jumlah bunga yang muncul sekaligus
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.innerText = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+      flower.style.left = Math.random() * 100 + 'vw';
+      flower.style.animationDuration = Math.random() * 3 + 5 + 's'; // Durasi animasi 5-8 detik
+      flower.style.fontSize = Math.random() * 10 + 20 + 'px'; // Ukuran bunga acak
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 10000); // Menghapus bunga setelah 8 detik
+    }
+  }
+
+  setInterval(createFlowers, 1000); // Memunculkan bunga setiap 1 detik
+</script> 
+</body>
+</html>
